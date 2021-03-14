@@ -296,12 +296,12 @@ void chooseColor()
   byte dimness = sin8_C(pulseMapped);
   pulseMapped = map(dimness, 0, 255, 0, 128);
   setColorOnFace(makeColorHSB(colorsHue[colorChoosed], 255, pulseMapped), colorChoosed);
-  if(buttonSingleClicked())
+  if(buttonSingleClicked() || buttonDoubleClicked())
   {
     colorChoosed = (colorChoosed + 1) % NB_COLORS;
     return;
   }
-  if(buttonDoubleClicked())
+  if(buttonLongPressed())
   {
     blinkState = CHECK_COLOR;
     return;
@@ -317,7 +317,7 @@ void chooseColor()
     else
     {
       // Reset !
-      reset();
+      //reset();
       return;
     }
   }
@@ -446,12 +446,12 @@ void showAnswer()
       setColorOnFace(makeColorHSB(0, 0, 128), (millis() / 300) % 6);
     break;
   }
-  if(buttonMultiClicked())
+  if(buttonLongPressed())
   {
     reset();
     return;
   }
-  if(buttonSingleClicked() || buttonDoubleClicked())
+  if(buttonSingleClicked() || buttonDoubleClicked() || buttonMultiClicked())
   {
     data[LENGTH_DATA] = whoIAm; // IDFrom
     data[LENGTH_DATA + 1] = CHOOSE_COLOR; // Next gameMode
